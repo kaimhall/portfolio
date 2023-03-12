@@ -8,4 +8,6 @@ Below you find links to materials currently in this portfolio.
 
 [Boston-Crime-prediction](https://kaimhall.github.io/portfolio/boston-crime)
 
+[Javascript](https://kaimhall.github.io/portfolio/boston-crime)
+
 [about](https://kaimhall.github.io/portfolio/about)
