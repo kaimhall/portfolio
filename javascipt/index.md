@@ -1,4 +1,4 @@
-# Some javascript hooks from fullstack open
+# javascript
 
 These hooks handle inputs, changehandling and database operations  
 for note app. App can add people to notebook. These services use  

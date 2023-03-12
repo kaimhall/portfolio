@@ -14,6 +14,6 @@ Below you find links to materials currently in this portfolio.
 
 [graphql](https://kaimhall.github.io/portfolio/graphql)
 
-[CI]
+[CI](https://kaimhall.github.io/portfolio/CI)
 
 [about](https://kaimhall.github.io/portfolio/about)
