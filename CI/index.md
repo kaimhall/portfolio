@@ -1,6 +1,6 @@
 # CI
 
-This continuos integration material is from university course.  
+This continuos integration material I made on Helsinki University course.  
 This project unit test, integrations tests and end-to-end tests  
 a phonebook app I coded. I will concentrate on backend, tests and CI.
 

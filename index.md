@@ -1,4 +1,4 @@
-# Welcome to my portfolio
+**Welcome to my portfolio**
 
 This portfolios purpose is to provide recruiters and hiring managers information about my coding skills. Hopefully this will aid in hiring decisions.
 
