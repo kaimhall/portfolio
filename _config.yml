@@ -1,3 +1,4 @@
 theme: jekyll-theme-minimal
 title: Kai Hall's portfolio
-description: Site for code and project showcases
+description: Site for professional code and project showcases
+show_downloads: true
