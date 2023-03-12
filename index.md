@@ -10,8 +10,10 @@ Below you find links to materials currently in this portfolio.
 
 [Sql](https://kaimhall.github.io/portfolio/sql)
 
-[Javascript](https://kaimhall.github.io/portfolio/javascript)
+[Javascript](https://kaimhall.github.io/portfolio/javascipt)
 
 [graphql](https://kaimhall.github.io/portfolio/graphql)
+
+[CI]
 
 [about](https://kaimhall.github.io/portfolio/about)

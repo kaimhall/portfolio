@@ -1,9 +1,9 @@
 # Sql
 
-This material presents first few router used in routing  
-SQL queries. Below router sends get request for certain  
+This material presents a router i wrote. It is used in routing  
+SQL queries for a blog app. Below router sends get request for certain  
 userid address. User is then searched by primarykey.  
-Blogs (object) written by user are in response also.
+Blogs (object) written by the user are in the response also.
 
 ```sql
 router.get('/:id', async (req, res) => {
@@ -36,7 +36,8 @@ router.get('/:id', async (req, res) => {
 ```
 
 User class (model) has id, username and name fields. Below is  
-postgreql veraion of modeling that.
+postgreql version of modeling user class. Postgreql has some  
+cababilities to validate emails etc.
 
 ```sql
 class User extends Model {}
@@ -76,3 +77,5 @@ User.init(
   }
 )
 ```
+
+[home](https://kaimhall.github.io/portfolio/)
