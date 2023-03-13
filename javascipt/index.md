@@ -1,6 +1,4 @@
-# javascript
-
-These hooks handle inputs, changehandling and database operations  
+These Javascript hooks handle inputs, change, events, and database operations  
 for note app. App can add people to notebook. These services use  
 effect hooks and useState.
 

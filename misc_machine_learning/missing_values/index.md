@@ -1,3 +1,6 @@
+In this project I research some methods to mitigate negative impacts of missing values.
+Different imputation methods are experimented on, and effect on mean is explored.
+
 ```r
 iris_data <- read.table("iris.csv", header = TRUE, sep = ";", dec = ",")
 head(iris_data)

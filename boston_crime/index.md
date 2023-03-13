@@ -1,5 +1,3 @@
-# Crime Hour
-
 ## Introduction
 
 Purpose of this machine learning project is to create model to predict, if serious crime happens within certain area of

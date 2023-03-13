@@ -1,5 +1,3 @@
-# Graphql
-
 These snippets are from fullstack open Grapghql. This app was about  
 books and authors. there was async api calls etc.
 
