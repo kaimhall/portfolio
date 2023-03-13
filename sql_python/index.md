@@ -1,10 +1,11 @@
+Python mySql connector practise with sqlalchemy and pymysql.
+
 ```python
 import mysql.connector
 import pymysql as mysql
 from sqlalchemy import create_engine
 import pandas as pd
 ```
-
 
 ```python
 login = 'root'
@@ -16,9 +17,6 @@ engine.execute('use classicmodels')
 engine.execute('show tables').fetchall()
 ```
 
-
-
-
     [('customers',),
      ('employees',),
      ('offices',),
@@ -28,9 +26,6 @@ engine.execute('show tables').fetchall()
      ('productlines',),
      ('products',),
      ('sales',)]
-
-
-
 
 ```python
 create_table = """
@@ -43,13 +38,7 @@ create_table = """
 engine.execute(create_table)
 ```
 
-
-
-
     <sqlalchemy.engine.cursor.LegacyCursorResult at 0x249399740d0>
-
-
-
 
 ```python
 insert_into = """
@@ -68,33 +57,21 @@ insert_into = """
 engine.execute(insert_into)
 ```
 
-
-
-
     <sqlalchemy.engine.cursor.LegacyCursorResult at 0x24939f176d0>
-
-
-
 
 ```python
 engine.execute('use classicmodels')
 engine.execute('SHOW COLUMNS FROM employee_sales').fetchall()
 ```
 
-
-
-
     [('sales_employee', b'varchar(50)', 'NO', 'PRI', None, ''),
      ('fiscal_year', b'int', 'NO', 'PRI', None, ''),
      ('sale', b'decimal(14,2)', 'NO', '', None, '')]
 
-
-
-
 ```python
 sales_fiscal = """
-                SELECT 
-                    fiscal_year, 
+                SELECT
+                    fiscal_year,
                     sales_employee,
                     sale,
                     NTILE (2) OVER (ORDER BY fiscal_year) total_sales
@@ -104,9 +81,6 @@ sales_fiscal = """
 fiscal_sales = pd.read_sql(sales_fiscal, engine)
 fiscal_sales
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -121,6 +95,7 @@ fiscal_sales
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -200,41 +175,35 @@ fiscal_sales
 </table>
 </div>
 
-
-
-
 ```python
 # create temp table in first SELECT. select from temp table with second SELECT.
 
 query = """
         WITH productline_sales AS (
-        SELECT 
+        SELECT
             productline,
             year(orderDate) order_year,
             ROUND(SUM(quantityOrdered * priceEach),0) order_value
         FROM orders
         INNER JOIN orderdetails USING (orderNumber)
         INNER JOIN products USING (productCode)
-        GROUP BY productline, order_year 
+        GROUP BY productline, order_year
         )
 
         SELECT
-            productline, 
-            order_year, 
+            productline,
+            order_year,
             order_value,
             NTILE(3) OVER (
                 PARTITION BY order_year
                 ORDER BY order_value DESC
             ) product_line_group
-        FROM 
+        FROM
             productline_sales;
         """
 n_tile = pd.read_sql(query, engine)
 n_tile
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -249,6 +218,7 @@ n_tile
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -412,9 +382,6 @@ n_tile
 </table>
 </div>
 
-
-
-
 ```python
 query = """
         CREATE TABLE productLineSales
@@ -435,20 +402,11 @@ query = """
 engine.execute(query)
 ```
 
-
-
-
     <sqlalchemy.engine.cursor.LegacyCursorResult at 0x2493a0a30d0>
-
-
-
 
 ```python
 pd.read_sql('SELECT * FROM productLineSales', engine)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -463,6 +421,7 @@ pd.read_sql('SELECT * FROM productLineSales', engine)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -604,9 +563,6 @@ pd.read_sql('SELECT * FROM productLineSales', engine)
 </table>
 </div>
 
-
-
-
 ```python
 #create temp table first.
 query = """
@@ -619,7 +575,7 @@ query = """
             GROUP BY
                 productLine
         )
-        
+
         SELECT
             productLine,
             orderValue,
@@ -631,9 +587,6 @@ query = """
         """
 pd.read_sql(query, engine)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -648,6 +601,7 @@ pd.read_sql(query, engine)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -705,9 +659,6 @@ pd.read_sql(query, engine)
 </table>
 </div>
 
-
-
-
 ```python
 query = """
         SELECT
@@ -726,9 +677,6 @@ query = """
 pd.read_sql(query, engine)
 ```
 
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -742,6 +690,7 @@ pd.read_sql(query, engine)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -905,4 +854,4 @@ pd.read_sql(query, engine)
 </table>
 </div>
 
-
+[home](https://kaimhall.github.io/portfolio)
