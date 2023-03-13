@@ -1,4 +1,4 @@
-``` r
+```r
 iris_data <- read.table("iris.csv", header = TRUE, sep = ";", dec = ",")
 head(iris_data)
 ```
@@ -11,7 +11,7 @@ head(iris_data)
     ## 5          1.7         0.2  setosa
     ## 6          1.6         0.2  setosa
 
-``` r
+```r
 plot(iris_data$Petal.Width,iris_data$Petal.Length)
 ```
 
@@ -19,75 +19,75 @@ plot(iris_data$Petal.Width,iris_data$Petal.Length)
 
 Fitting linear model.
 
-``` r
+```r
 lm_fit <- lm(Petal.Width ~ Petal.Length, data = iris_data)
 summary(lm_fit)
 ```
 
-    ## 
+    ##
     ## Call:
     ## lm(formula = Petal.Width ~ Petal.Length, data = iris_data)
-    ## 
+    ##
     ## Residuals:
-    ##     Min      1Q  Median      3Q     Max 
-    ## -0.3518 -0.1518  0.0254  0.1391  0.3810 
-    ## 
+    ##     Min      1Q  Median      3Q     Max
+    ## -0.3518 -0.1518  0.0254  0.1391  0.3810
+    ##
     ## Coefficients:
-    ##              Estimate Std. Error t value Pr(>|t|)    
+    ##              Estimate Std. Error t value Pr(>|t|)
     ## (Intercept)  -0.46809    0.10416  -4.494    2e-04 ***
     ## Petal.Length  0.45906    0.02738  16.769 1.23e-13 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-    ## 
+    ##
     ## Residual standard error: 0.2149 on 21 degrees of freedom
     ##   (7 observations deleted due to missingness)
-    ## Multiple R-squared:  0.9305, Adjusted R-squared:  0.9272 
+    ## Multiple R-squared:  0.9305, Adjusted R-squared:  0.9272
     ## F-statistic: 281.2 on 1 and 21 DF,  p-value: 1.231e-13
 
-``` r
+```r
 lm_fit$coefficients
 ```
 
-    ##  (Intercept) Petal.Length 
+    ##  (Intercept) Petal.Length
     ##   -0.4680856    0.4590629
 
 Here mean can’t be calculated with NA values.
 
-``` r
+```r
 mean(iris_data$Petal.Length)
 ```
 
     ## [1] NA
 
-``` r
+```r
 mean(iris_data$Petal.Width)
 ```
 
     ## [1] NA
 
-``` r
+```r
 summary(iris_data)
 ```
 
-    ##   Petal.Length  Petal.Width      Species         
-    ##  Min.   :1.2   Min.   :0.200   Length:30         
-    ##  1st Qu.:1.6   1st Qu.:0.375   Class :character  
-    ##  Median :4.2   Median :1.350   Mode  :character  
-    ##  Mean   :3.4   Mean   :1.289                     
-    ##  3rd Qu.:4.7   3rd Qu.:2.025                     
-    ##  Max.   :5.7   Max.   :2.500                     
+    ##   Petal.Length  Petal.Width      Species
+    ##  Min.   :1.2   Min.   :0.200   Length:30
+    ##  1st Qu.:1.6   1st Qu.:0.375   Class :character
+    ##  Median :4.2   Median :1.350   Mode  :character
+    ##  Mean   :3.4   Mean   :1.289
+    ##  3rd Qu.:4.7   3rd Qu.:2.025
+    ##  Max.   :5.7   Max.   :2.500
     ##  NA's   :5     NA's   :2
 
 We have set omission as method of dealing with missing values. I iris
 data we have 23 complete observations -\> no missing values
 
-``` r
+```r
 getOption('na.action')
 ```
 
     ## [1] "na.omit"
 
-``` r
+```r
 sum(complete.cases(iris_data))
 ```
 
@@ -95,13 +95,13 @@ sum(complete.cases(iris_data))
 
 with na removal.
 
-``` r
+```r
 (mean_pl <- mean(iris_data$Petal.Length, na.rm = TRUE))
 ```
 
     ## [1] 3.4
 
-``` r
+```r
 (mean_pw <- mean(iris_data$Petal.Width, na.rm = TRUE))
 ```
 
@@ -109,19 +109,19 @@ with na removal.
 
 No na removal, only complete rows, complete pairwise
 
-``` r
+```r
 cov(iris_data$Petal.Length, iris_data$Petal.Width) #returns NA
 ```
 
     ## [1] NA
 
-``` r
+```r
 cov(iris_data$Petal.Length, iris_data$Petal.Width, use = "complete.obs") # case wise deletion
 ```
 
     ## [1] 1.286047
 
-``` r
+```r
 cov(iris_data$Petal.Length, iris_data$Petal.Width, use = "pairwise.complete.obs") # calculated using all pair
 ```
 
@@ -129,7 +129,7 @@ cov(iris_data$Petal.Length, iris_data$Petal.Width, use = "pairwise.complete.obs"
 
 mean imputation for missing values.
 
-``` r
+```r
 mean_imputation <- iris_data
 
 idx_pw_na <- is.na(mean_imputation$Petal.Width) #find na
@@ -146,7 +146,7 @@ mean_pl_meanimpute
 
 stratified mean imputation for missing values.
 
-``` r
+```r
 strat_mean_imputation <- iris_data
 
 #petal width
@@ -162,16 +162,16 @@ strat_mean_imputation$Petal.Width[is.na(strat_mean_imputation$Petal.Width) & str
 summary(strat_mean_imputation)
 ```
 
-    ##   Petal.Length  Petal.Width      Species         
-    ##  Min.   :1.2   Min.   :0.200   Length:30         
-    ##  1st Qu.:1.6   1st Qu.:0.325   Class :character  
-    ##  Median :4.2   Median :1.306   Mode  :character  
-    ##  Mean   :3.4   Mean   :1.256                     
-    ##  3rd Qu.:4.7   3rd Qu.:1.975                     
-    ##  Max.   :5.7   Max.   :2.500                     
+    ##   Petal.Length  Petal.Width      Species
+    ##  Min.   :1.2   Min.   :0.200   Length:30
+    ##  1st Qu.:1.6   1st Qu.:0.325   Class :character
+    ##  Median :4.2   Median :1.306   Mode  :character
+    ##  Mean   :3.4   Mean   :1.256
+    ##  3rd Qu.:4.7   3rd Qu.:1.975
+    ##  Max.   :5.7   Max.   :2.500
     ##  NA's   :5
 
-``` r
+```r
 mean_pw_strat <- mean(strat_mean_imputation$Petal.Width)
 
 #petal length
@@ -181,15 +181,15 @@ strat_mean_imputation$Petal.Length[is.na(strat_mean_imputation$Petal.Length) & s
 summary(strat_mean_imputation)
 ```
 
-    ##   Petal.Length    Petal.Width      Species         
-    ##  Min.   :1.200   Min.   :0.200   Length:30         
-    ##  1st Qu.:1.625   1st Qu.:0.325   Class :character  
-    ##  Median :4.400   Median :1.306   Mode  :character  
-    ##  Mean   :3.730   Mean   :1.256                     
-    ##  3rd Qu.:5.275   3rd Qu.:1.975                     
+    ##   Petal.Length    Petal.Width      Species
+    ##  Min.   :1.200   Min.   :0.200   Length:30
+    ##  1st Qu.:1.625   1st Qu.:0.325   Class :character
+    ##  Median :4.400   Median :1.306   Mode  :character
+    ##  Mean   :3.730   Mean   :1.256
+    ##  3rd Qu.:5.275   3rd Qu.:1.975
     ##  Max.   :5.700   Max.   :2.500
 
-``` r
+```r
 mean_pl_strat <-  mean(strat_mean_imputation$Petal.Length)
 mean_pl_strat
 ```
@@ -198,21 +198,21 @@ mean_pl_strat
 
 regression imputation for na values.
 
-``` r
+```r
 regr_imputation <- iris_data
 summary(regr_imputation)
 ```
 
-    ##   Petal.Length  Petal.Width      Species         
-    ##  Min.   :1.2   Min.   :0.200   Length:30         
-    ##  1st Qu.:1.6   1st Qu.:0.375   Class :character  
-    ##  Median :4.2   Median :1.350   Mode  :character  
-    ##  Mean   :3.4   Mean   :1.289                     
-    ##  3rd Qu.:4.7   3rd Qu.:2.025                     
-    ##  Max.   :5.7   Max.   :2.500                     
+    ##   Petal.Length  Petal.Width      Species
+    ##  Min.   :1.2   Min.   :0.200   Length:30
+    ##  1st Qu.:1.6   1st Qu.:0.375   Class :character
+    ##  Median :4.2   Median :1.350   Mode  :character
+    ##  Mean   :3.4   Mean   :1.289
+    ##  3rd Qu.:4.7   3rd Qu.:2.025
+    ##  Max.   :5.7   Max.   :2.500
     ##  NA's   :5     NA's   :2
 
-``` r
+```r
 #petal width
 subset(regr_imputation,is.na(Petal.Width))
 ```
@@ -221,7 +221,7 @@ subset(regr_imputation,is.na(Petal.Width))
     ## 3           1.5          NA     setosa
     ## 18          4.5          NA versicolor
 
-``` r
+```r
 # fit the linear model and impute predictions
 
 lm_fit_width <- lm(Petal.Width ~ Petal.Length, data = iris_data)
@@ -233,7 +233,7 @@ mean_pw_regr
 
     ## [1] 1.26394
 
-``` r
+```r
 #petal length
 subset(regr_imputation,is.na(Petal.Length))
 ```
@@ -245,21 +245,21 @@ subset(regr_imputation,is.na(Petal.Length))
     ## 27           NA         1.9 virginica
     ## 28           NA         2.3 virginica
 
-``` r
+```r
 lm_fit_length <- lm(Petal.Length ~ Petal.Width, data = iris_data)
-regr_imputation$Petal.Length[is.na(regr_imputation$Petal.Length)] <- predict(lm_fit_length, subset(regr_imputation, is.na(Petal.Length)))  
+regr_imputation$Petal.Length[is.na(regr_imputation$Petal.Length)] <- predict(lm_fit_length, subset(regr_imputation, is.na(Petal.Length)))
 summary(regr_imputation)
 ```
 
-    ##   Petal.Length    Petal.Width      Species         
-    ##  Min.   :1.200   Min.   :0.200   Length:30         
-    ##  1st Qu.:1.625   1st Qu.:0.325   Class :character  
-    ##  Median :4.400   Median :1.350   Mode  :character  
-    ##  Mean   :3.747   Mean   :1.264                     
-    ##  3rd Qu.:5.085   3rd Qu.:1.975                     
+    ##   Petal.Length    Petal.Width      Species
+    ##  Min.   :1.200   Min.   :0.200   Length:30
+    ##  1st Qu.:1.625   1st Qu.:0.325   Class :character
+    ##  Median :4.400   Median :1.350   Mode  :character
+    ##  Mean   :3.747   Mean   :1.264
+    ##  3rd Qu.:5.085   3rd Qu.:1.975
     ##  Max.   :6.255   Max.   :2.500
 
-``` r
+```r
 mean_pl_regr <- mean(regr_imputation$Petal.Length)
 mean_pl_regr
 ```
@@ -268,7 +268,7 @@ mean_pl_regr
 
 maximum likelihood for na values.
 
-``` r
+```r
 if (!require(mclust)) {
   install.packages("mclust")
   require(mclust)
@@ -280,7 +280,7 @@ if (!require(mclust)) {
     ## Package 'mclust' version 5.4.10
     ## Type 'citation("mclust")' for citing this R package in publications.
 
-``` r
+```r
 iris_ml <- iris_data
 trainingdata <- iris_data[complete.cases(iris_data),]
 
@@ -289,29 +289,29 @@ dens <- densityMclust(trainingdata[,c(1,2)])
 
 ![](missing-values_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
-``` r
+```r
 summary(dens, parameters = TRUE)
 ```
 
-    ## ------------------------------------------------------- 
-    ## Density estimation via Gaussian finite mixture modeling 
-    ## ------------------------------------------------------- 
-    ## 
+    ## -------------------------------------------------------
+    ## Density estimation via Gaussian finite mixture modeling
+    ## -------------------------------------------------------
+    ##
     ## Mclust EEE (ellipsoidal, equal volume, shape and orientation) model with 5
-    ## components: 
-    ## 
+    ## components:
+    ##
     ##  log-likelihood  n df       BIC       ICL
     ##        3.332066 23 17 -46.63927 -46.65523
-    ## 
+    ##
     ## Mixing probabilities:
-    ##          1          2          3          4          5 
-    ## 0.39130435 0.26068872 0.08713737 0.08692027 0.17394930 
-    ## 
+    ##          1          2          3          4          5
+    ## 0.39130435 0.26068872 0.08713737 0.08692027 0.17394930
+    ##
     ## Means:
     ##                   [,1]     [,2]     [,3]     [,4]     [,5]
     ## Petal.Length 1.4888889 4.433393 3.651447 4.949938 5.449927
     ## Petal.Width  0.2666667 1.316722 1.050387 1.899959 2.324932
-    ## 
+    ##
     ## Variances:
     ## [,,1]
     ##              Petal.Length Petal.Width
@@ -334,24 +334,24 @@ summary(dens, parameters = TRUE)
     ## Petal.Length  0.028012791 0.005388134
     ## Petal.Width   0.005388134 0.006131798
 
-``` r
+```r
 #plot(dens, what = "density", data = trainingdata[,c(1,2)])
 #plot(dens, what = "density", type = "persp")
 
 summary(iris_ml)
 ```
 
-    ##   Petal.Length  Petal.Width      Species         
-    ##  Min.   :1.2   Min.   :0.200   Length:30         
-    ##  1st Qu.:1.6   1st Qu.:0.375   Class :character  
-    ##  Median :4.2   Median :1.350   Mode  :character  
-    ##  Mean   :3.4   Mean   :1.289                     
-    ##  3rd Qu.:4.7   3rd Qu.:2.025                     
-    ##  Max.   :5.7   Max.   :2.500                     
+    ##   Petal.Length  Petal.Width      Species
+    ##  Min.   :1.2   Min.   :0.200   Length:30
+    ##  1st Qu.:1.6   1st Qu.:0.375   Class :character
+    ##  Median :4.2   Median :1.350   Mode  :character
+    ##  Mean   :3.4   Mean   :1.289
+    ##  3rd Qu.:4.7   3rd Qu.:2.025
+    ##  Max.   :5.7   Max.   :2.500
     ##  NA's   :5     NA's   :2
 
-``` r
-#width estimates 
+```r
+#width estimates
 widths <- seq(0,4,0.1)
 
 lengths <- rep(iris_data$Petal.Length[18], length(widths))
@@ -397,14 +397,14 @@ iris_ml
     ## 29          5.6         2.4  virginica
     ## 30          5.2         2.3  virginica
 
-``` r
+```r
 mean_pw_ml <- mean(iris_ml$Petal.Width)
 mean_pw_ml
 ```
 
     ## [1] 1.256667
 
-``` r
+```r
 #Length estimates
 lengths <- seq(1,7,0.1)
 
@@ -463,9 +463,11 @@ iris_ml
     ## 29          5.6         2.4  virginica
     ## 30          5.2         2.3  virginica
 
-``` r
+```r
 mean_pl_ml <- mean(iris_ml$Petal.Length)
 mean_pl_ml
 ```
 
     ## [1] 3.7
+
+[back](https://kaimhall.github.io/portfolio/misc_machine_learning)

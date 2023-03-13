@@ -280,3 +280,5 @@ plot(y_s.pred,y_s)
 ```
 
 ![](exercise7_files/figure-markdown_github/unnamed-chunk-12-1.png)
+
+[back](https://kaimhall.github.io/portfolio/misc_machine_learning)

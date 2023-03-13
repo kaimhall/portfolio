@@ -56,6 +56,7 @@ model.fit(X_train, y_train)
     LinearRegression()
 
 ```python
+
 #linear regression predictions
 y_train_predict = model.predict(X_train)
 train_r2 = r2_score(y_train, y_train_predict)
@@ -68,11 +69,12 @@ test_rmse = (np.sqrt(mean_squared_error(y_test, y_test_predict)))
 print(f'train: R2= {train_r2.round(2)} rmse= {train_rmse.round(2)}')
 print(f'test: R2= {test_r2.round(2)} rmse= {test_rmse.round(2)}')
 
-print("worse result in test data imply overfitting")
 ```
 
     train: R2= 0.81 rmse= 3.23
     test: R2= 0.77 rmse= 4.13
+
+Worse result in test data imply overfitting
 
 ```python
 #ridge regressor
@@ -82,12 +84,11 @@ rr = RidgeCV(alphas=alp, scoring='r2')
 rr.fit(X_train, y_train)
 
 print(f'R2= {rr.score(X_train, y_train)}')
-
-print("r2 score for model is 0.81. this is middle bias, I presume. RidgeCV was used because it's capability to spit approximation of best alpha.")
-
 ```
 
     R2= 0.8123837301029226
+
+r2 score for model is 0.81. this is middle bias, I presume. RidgeCV was used because it's capability to spit approximation of best alpha.
 
 ```python
 #optimal alpha
@@ -117,20 +118,21 @@ plt.xlabel('alpha')
 plt.ylabel('R2')
 plt.show()
 
-print("result start to decrease around 100. That would be the ridge i.e alpha value to use")
 ```
 
 ![png](output_9_0.png)
+
+result start to decrease around 100. That would be the ridge i.e alpha value to use.
 
 ```python
 rr = RidgeCV(alphas=100, scoring='r2')
 rr.fit(X_test, y_test)
 print(rr.score(X_test, y_test))
-
-print("rr.score calculates r2 under the hood. r2 is .83 and improves compared to training data. the model can explain unseen data with creater accuracy than training data. I think model is balanced and ridge regression is one to choose.")
 ```
 
     0.8267671158226748
+
+rr.score calculates r2 under the hood. r2 is .83 and improves compared to training data. the model can explain unseen data with creater accuracy than training data. I think model is balanced and ridge regression is one to choose.
 
 ```python
 #lasso regressor for test
@@ -152,18 +154,17 @@ plt.xlabel("alpha")
 plt.ylabel("R2 score")
 plt.show()
 
-print("peak in r2 is at approximately alpha 0.3. this is the optimal value for lasso regression alpha")
 ```
 
 ![png](output_13_0.png)
+
+peak in r2 is at approximately alpha 0.3. this is the optimal value for lasso regression alpha
 
 ```python
 # see what is in results
 print(f'colmuns: {X_test.columns}')
 for i in coef:
     print(i)
-
-print("from below we can see that lasso droppped 'cylinders', 'displacement' and 'horsepower' features as unsable")
 ```
 
     colmuns: Index(['cylinders', 'displacement', 'horsepower', 'weight', 'acceleration',
@@ -180,6 +181,8 @@ print("from below we can see that lasso droppped 'cylinders', 'displacement' and
     [-0.    0.   -0.   -0.01  0.05  0.67]
     [-0.    0.   -0.   -0.01  0.05  0.67]
 
+from above we can see that lasso droppped 'cylinders', 'displacement' and 'horsepower' features as unusable.
+
 ```python
 # test with best score
 lasso = Lasso(alpha=0.3)
@@ -187,9 +190,11 @@ lasso.fit(X_train, y_train)
 
 print(f'train: R2= {lasso.score(X_train, y_train).round(2)}')
 print(f'test: R2= {lasso.score(X_test, y_test).round(2)}')
-
-print("model performs worse than ridge regression. model also is not able reduce error on new data. perhaps simplifying the model increases the error, because almost every feature had every strong correlation/relationship with each other. similar results to linear regression.")
 ```
 
     train: R2= 0.81
     test: R2= 0.78
+
+model performs worse than ridge regression. model also is not able reduce error on new data. perhaps simplifying the model increases the error, because almost every feature had every strong correlation/relationship with each other. similar results to linear regression.
+
+[back](https://kaimhall.github.io/portfolio/misc_machine_learning)

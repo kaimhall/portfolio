@@ -11,3 +11,5 @@ I see all these aspects as relevant areas in machine learning.
 [missing-values](https://kaimhall.github.io/portfolio/misc_machine_learning/missing_values)
 
 [regressions](https://kaimhall.github.io/portfolio/misc_machine_learning/regressions)
+
+[home](https://kaimhall.github.io/portfolio)

@@ -1,15 +1,15 @@
+This project is research on using Azure cognitive services NLP capabilities in determining sentiments in longer speeches. This has AI feel to it. There is comparison of Hitler, Gandhi and Reagan.
+
 ```python
 import numpy as np
 import pandas as pd
 ```
-
 
 ```python
 #endpoint and key
 key = "05c815187aec4ea28cf3f61e0db8669c"
 endpoint = "https://analyzertext.cognitiveservices.azure.com/"
 ```
-
 
 ```python
 from azure.ai.textanalytics import TextAnalyticsClient
@@ -18,12 +18,11 @@ from azure.core.credentials import AzureKeyCredential
 def authenticate_client():
     ta_credential = AzureKeyCredential(key)
     text_analytics_client = TextAnalyticsClient(
-            endpoint=endpoint, 
+            endpoint=endpoint,
             credential=ta_credential)
     return text_analytics_client
 client = authenticate_client()
 ```
-
 
 ```python
 def txt_cleaner(txt_doc):
@@ -37,7 +36,6 @@ def txt_cleaner(txt_doc):
     return doc
 ```
 
-
 ```python
 def import_rawlines(folder, filename):
     #raw lines
@@ -48,14 +46,12 @@ def import_rawlines(folder, filename):
     return doc
 ```
 
-
 ```python
 def sentiment_analysis(client, doc):
     documents = doc
     response = client.analyze_sentiment(documents=documents)[0]
     return response
 ```
-
 
 ```python
 fd = "C:/Users/HP/Desktop/nlp/"
@@ -68,13 +64,7 @@ doc3 = import_rawlines(fd,fn3)
 len(doc1)
 ```
 
-
-
-
     225
-
-
-
 
 ```python
 def clean_doc(dc):
@@ -85,20 +75,15 @@ def clean_doc(dc):
     return dc
 ```
 
-
 ```python
 doc1 = clean_doc(doc1)
 doc2 = clean_doc(doc2)
 doc3 = clean_doc(doc3)
 ```
 
-
 ```python
 doc1
 ```
-
-
-
 
     ['german fellowcountrymen women party comrades think something extraordinary man years stand old followers make revisions program years',
      'todays gathering however reminds us evening able celebrate former hall years ago reminds us time midst hard fight fight take power germany decisive fate fight waging today past year became known us meaning victory achieved germany would remained powerless nation army men would necessarily submit destruction',
@@ -214,9 +199,6 @@ doc1
      'mr roosevelt says hear speeches say talk mr roosevelts benefit accosted telegraph thereupon gave reply polite man would otherwise talk mr roosevelt talk instrument one talk today instrument talks loud distinct enough',
      'otherwise talk rarest occasions movement german people say speech one thing think incessantly men women fact war decide people understand one thoughts actions one single prayer germany']
 
-
-
-
 ```python
 def sentence_count(doc):
     df = pd.DataFrame(columns= ['s_sentiment','s_positive','s_negative','s_neutral'], dtype=int)
@@ -226,15 +208,14 @@ def sentence_count(doc):
         r = sentiment_analysis(client, temp)
         df2 = pd.DataFrame(columns= ['s_sentiment','s_positive','s_negative','s_neutral'], dtype=int)
         for idx, sentence in enumerate(r.sentences):
-            df2 = df2.append({'s_sentiment':sentence.sentiment, 
-                        's_positive':sentence.confidence_scores.positive, 
-                        's_negative':sentence.confidence_scores.negative, 
-                        's_neutral': sentence.confidence_scores.neutral 
+            df2 = df2.append({'s_sentiment':sentence.sentiment,
+                        's_positive':sentence.confidence_scores.positive,
+                        's_negative':sentence.confidence_scores.negative,
+                        's_neutral': sentence.confidence_scores.neutral
                        }, ignore_index=True)
         df = df.append(df2)
     return df
 ```
-
 
 ```python
 def sentiment_count(doc):
@@ -244,16 +225,15 @@ def sentiment_count(doc):
     for i in range(len(doc)):
         temp = []
         temp.append(''.join(doc[i]))
-        
+
         r = sentiment_analysis(client, temp)
         df.loc[int(i), 'sentiment'] = r.sentiment
-        df.loc[int(i), 'positive'] = r.confidence_scores.positive 
+        df.loc[int(i), 'positive'] = r.confidence_scores.positive
         df.loc[int(i), 'negative'] = r.confidence_scores.negative
         df.loc[int(i), 'neutral'] = r.confidence_scores.neutral
-        
+
     return df
 ```
-
 
 ```python
 hitler_sense = sentiment_count(doc1)
@@ -261,13 +241,11 @@ gandhi_sense = sentiment_count(doc2)
 reagan_sense = sentiment_count(doc3)
 ```
 
-
 ```python
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 ```
-
 
 ```python
 cols = ['negative','neutral','positive','sentiment']
@@ -290,15 +268,10 @@ pv_reagan.plot(kind='bar', stacked=True, rot=45,mark_right=True, ax=ax3)
 plt.title('Reagan')
 ```
 
-
-
-
     Text(0.5, 1.0, 'Reagan')
 
-
-
-
-    
 ![png](output_14_1.png)
-    
 
+left to right: Hitler - Gandhi - Reagan
+
+[back](https://kaimhall.github.io/portfolio/misc_machine_learning)
