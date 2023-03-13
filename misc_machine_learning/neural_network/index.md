@@ -1,3 +1,9 @@
+This project is about data preprocessing. Here are examples of different normalizatons
+and standardizations.
+
+Neural Network is trained with and without principal component analysis. PCA reduces
+dimensionality in data by linear combinations.
+
 ```r
 load('data_PCA_E7.RData')
 summary(X)
@@ -42,8 +48,9 @@ print(summary(x.pca))
     ## Proportion of Variance 9.973e-01 2.680e-03  0.00 0.000
     ## Cumulative Proportion  9.973e-01 1.000e+00  1.00 1.000
 
+z-score standardization
+
 ```r
-#z-score standardization
 x.pca <- prcomp(X,center=TRUE,scale=TRUE)
 print(x.pca)
 ```
@@ -74,7 +81,7 @@ print(summary(x.pca))
     ## Proportion of Variance 0.4275 0.3413 0.1551 0.07613
     ## Cumulative Proportion  0.4275 0.7688 0.9239 1.00000
 
-#NN without PCA
+NN without PCA
 
 ```r
 library(nnet)
@@ -106,9 +113,9 @@ summary(X)
     ##  3rd Qu.:0.00000   3rd Qu.:1.0000
     ##  Max.   :1.00000   Max.   :1.0000
 
-```r
-#min-max scaling
+min-max scaling
 
+```r
 minx=apply(X,2,min)
 maxx=apply(X,2,max)
 
@@ -119,8 +126,9 @@ X_S=scale(X,minx,maxx-minx)
 y_s=scale(y,miny,maxy-miny)
 ```
 
+NN model
+
 ```r
-# NN model
 model_nn <- nnet(X_S, y_s, size=20,
                  maxit=300, decay=0.03, linout=TRUE, reltol=1.e-6, MaxNWts=100000)
 ```
@@ -160,8 +168,9 @@ model_nn <- nnet(X_S, y_s, size=20,
     ## final  value 23.187084
     ## stopped after 300 iterations
 
+produce the predictions
+
 ```r
-# produce the predictions
 y_s.predict <- predict(model_nn, X_S)
 print(cor(y_s.predict,y_s))
 ```
@@ -185,10 +194,12 @@ str(X)
     ##  $ Var9 : num  1 1 1 1 0 0 0 0 0 0 ...
     ##  $ Var10: num  0 0 0 0 1 1 1 1 1 0 ...
 
-# NN with PCA
+NN with PCA
+
+remove binary variables and standardize X.
 
 ```r
-# remove binary variables and standardize X
+
 
 miny=min(y)
 maxy=max(y)
@@ -217,15 +228,17 @@ print(summary(x.pca))
     ## Proportion of Variance 0.252 0.1941 0.1838 0.1399 0.1049 0.08643 0.03885
     ## Cumulative Proportion  0.252 0.4461 0.6299 0.7698 0.8747 0.96115 1.00000
 
+binary variables are added back to the data
+
 ```r
-# binary variables are added back to the data
 
 N=7
 x_data <- data.frame(X[,c(3,9,10)],pred_pca[,1:N])
 ```
 
+NN model with pca
+
 ```r
-# NN model with pca
 
 model_pcann <- nnet(x_data, y_s, size=20,
                  maxit=300, decay=0.03, linout=TRUE, reltol=1.e-6, MaxNWts=100000)
@@ -266,8 +279,9 @@ model_pcann <- nnet(x_data, y_s, size=20,
     ## final  value 17.698402
     ## stopped after 300 iterations
 
+predict and eval
+
 ```r
-# predict and eval
 y_s.pred <- predict(model_pcann, x_data)
 print(cor(y_s.pred, y_s))
 ```
