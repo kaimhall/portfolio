@@ -1,5 +1,3 @@
-# Sql
-
 This material presents a router i wrote. It is used in routing  
 SQL queries for a blog app. Below router sends get request for certain  
 userid address. User is then searched by primarykey.  
