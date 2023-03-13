@@ -6,7 +6,7 @@ I'm excited coding, problem solving, finding new information and creation of new
 
 I value quality, agility, and continuous development. I am interested in statistics, math, learning and artificial intelligence.
 
-You can reach me at:
+You can reach me at:  
 kaimhall@gmail.com  
 +358 40 8720 186
 
