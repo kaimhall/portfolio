@@ -1,6 +1,6 @@
-This portfolios purpose is to provide recruiters and hiring managers information about my coding skills. My goal is to support good hiring decisions.
+This portfolio's purpose is to provide recruiters and hiring managers information about my coding skills. My goal is to support good hiring decisions.
 
-Material here is my own code written in many coding classes, courses and projects. I will try curate this content so that it would show my progress as datascientist. I will also try to keep materials here relevant.
+Material here is my own code written in many coding classes, courses and projects. I will try to curate this content so that it would show my progress as datascientist. I will also try to keep materials here relevant.
 
 Below you find links to materials currently in this portfolio.
 
