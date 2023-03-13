@@ -6,7 +6,9 @@ Material here is my own code written in many coding classes and courses. I will 
 
 Below you find links to materials currently in this portfolio.
 
-[Boston-Crime-prediction](https://kaimhall.github.io/portfolio/boston-crime)
+[Boston-Crime-prediction](https://kaimhall.github.io/portfolio/boston_crime)
+
+[Misc Machinelearning](https://kaimhall.github.io/portfolio/misc_machine_learning)
 
 [Sql](https://kaimhall.github.io/portfolio/sql)
 
